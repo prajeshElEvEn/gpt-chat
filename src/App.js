@@ -72,9 +72,9 @@ function App() {
                 }
               </>
             ) : (
-              <>
+              <div className='loading'>
                 <Loading />
-              </>
+              </div>
             )
           }
         </div>
