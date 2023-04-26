@@ -6,6 +6,44 @@
   width: 70%;
   margin: 0 auto;
 }
+.container .main form {
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .main form .form-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eaddff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+}
+.container .main form .form-field .input-field input {
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  outline: none;
+}
+.container .main form .form-field .submit-btn {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: #671DDF;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+.container .main .answer {
+  background: #eaddff;
+  padding: 1rem;
+  border-radius: 10px;
+}
 
 .nav {
   width: 70%;

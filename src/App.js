@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './styles/App.css';
 import axios from 'axios';
 import Navbar from './components/Navbar';
+import Loading from './components/Loading';
 
 function App() {
 
@@ -11,26 +12,30 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setData(null)
-    const config = {
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
+    if (!query) {
+      alert('Please enter a message')
+    } else {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
+        }
       }
+      const sendData = {
+        model: "text-davinci-003",
+        prompt: query,
+        max_tokens: 1024,
+      }
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL,
+        sendData,
+        config
+      )
+      const res = response.data
+      setData(res)
+      // console.log(res)
+      setQuery('')
     }
-    const sendData = {
-      model: "text-davinci-003",
-      prompt: query,
-      max_tokens: 1024,
-    }
-    const response = await axios.post(
-      process.env.REACT_APP_API_URL,
-      sendData,
-      config
-    )
-    const res = response.data
-    setData(res)
-    // console.log(res)
-    setQuery('')
   }
 
   return (
@@ -40,25 +45,37 @@ function App() {
       </div>
       <div className='main'>
         <form
-        // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
           <div className='form-field'>
             <div className='input-field'>
               <input
                 type="text"
+                placeholder='Enter your message here...'
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
             </div>
             <input
+              className='submit-btn'
               type="submit"
-              value="Submit"
+              value="Send"
             />
           </div>
         </form>
         <div className='answer'>
           {
-            data ? <h1>{data.choices[0].text}</h1> : <h1>Loading...</h1>
+            data ? (
+              <>
+                {
+                  data.choices[0].text
+                }
+              </>
+            ) : (
+              <>
+                <Loading />
+              </>
+            )
           }
         </div>
       </div>
