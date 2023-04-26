@@ -3,7 +3,8 @@ import './styles/App.css';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
   const [query, setQuery] = useState('')
@@ -13,7 +14,7 @@ function App() {
     e.preventDefault()
     setData(null)
     if (!query) {
-      alert('Please enter a message')
+      toast.error('Please enter a message')
     } else {
       const config = {
         headers: {
@@ -33,7 +34,6 @@ function App() {
       )
       const res = response.data
       setData(res)
-      // console.log(res)
       setQuery('')
     }
   }
@@ -79,6 +79,7 @@ function App() {
           }
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
